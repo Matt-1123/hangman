@@ -1,0 +1,16 @@
+{
+  "name": "hangman",
+  "version": "1.0.0",
+  "engine": {
+    "node": "16.3.0"
+  },
+  "main": "index.js",
+  "author": "Matt Russo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<YOUR USERNAME>/hangman.git"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
