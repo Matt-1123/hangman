@@ -7,6 +7,7 @@ const wordBank = require("./word-bank.json");
 // ---------------------------------- //
 // FUNCTIONS
 // ---------------------------------- //
+
 const randomWord = () => wordBank[Math.floor(Math.random() * wordBank.length)];
 
 const newRound = () => {
@@ -39,7 +40,7 @@ const newRound = () => {
     hiddenWord = "";
     wordArray.forEach((ltr) => {
       correctGuesses.includes(ltr)
-        ? (hiddenWord += ltr)
+        ? (hiddenWord += ` ${ltr} `)
         : (hiddenWord += " __ ");
     });
   };
@@ -67,6 +68,11 @@ const newRound = () => {
     } else if (word.includes(letter)) {
       correctGuesses.push(letter);
       console.log(correctGuesses);
+      // player wins if every letter in wordArray is found in correctGuesses
+      if (wordArray.every((ltr) => correctGuesses.includes(ltr))) {
+        console.log("You win!!!");
+        newRound();
+      }
       updateHiddenWord();
       updateGallows();
       console.log(hiddenWord);
