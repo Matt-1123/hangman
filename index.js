@@ -1,8 +1,77 @@
 const prompt = require("readline-sync");
 const wordBank = require("./word-bank.json");
 
+// ---------------------------------- //
+// GLOBAL VARIABLES
+// ---------------------------------- //
 let roundNumber = 1;
 let totalWins = 0;
+
+const gallows = {
+  0: `
+     _______
+     |/    |
+     |    
+     |    
+     |     
+     |    
+  ___|___
+  `,
+  1: `
+     _______
+     |/    |
+     |    ( ) 
+     |    
+     |     
+     |    
+  ___|___
+  `,
+  2: `
+     _______
+     |/    |
+     |    ( ) 
+     |     |
+     |     |
+     |   
+  ___|___
+  `,
+  3: `
+     _______
+     |/    |
+     |    ( ) 
+     |    /|
+     |     |
+     |    
+  ___|___
+  `,
+  4: `
+     _______
+     |/    |
+     |    ( ) 
+     |    /|\\
+     |     |
+     |    
+  ___|___
+  `,
+  5: `
+     _______
+     |/    |
+     |    ( ) 
+     |    /|\\
+     |     |
+     |    / 
+  ___|___
+  `,
+  6: `
+     _______
+     |/    |
+     |    ( ) 
+     |    /|\\
+     |     |
+     |    / \\
+  ___|___
+  `,
+};
 
 // ---------------------------------- //
 // FUNCTIONS
@@ -30,21 +99,21 @@ const newRound = () => {
     hiddenWord += " __ ";
   }
 
-  let gallows = `
-     _______
-     |/    |
-     |    ( ) 
-     |    /|\\
-     |     |
-     |    / \\
-  ___|___
-  `;
+  // let gallows = `
+  //    _______
+  //    |/    |
+  //    |    ( )
+  //    |    /|\\
+  //    |     |
+  //    |    / \\
+  // ___|___
+  // `;
 
   let correctGuesses = [];
   let incorrectGuesses = [];
 
   const updateGallows = () => {
-    console.log(gallows);
+    console.log(gallows[incorrectGuesses.length]);
   };
 
   const updateHiddenWord = () => {
@@ -99,6 +168,7 @@ const newRound = () => {
         console.log(hiddenWord);
         guess();
       } else {
+        updateGallows();
         console.log("Sorry, you lose :(");
         roundNumber++;
         newRound();
