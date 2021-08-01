@@ -12,13 +12,42 @@ const randomWord = () => wordBank[Math.floor(Math.random() * wordBank.length)];
 const newRound = () => {
   const word = randomWord();
   const wordArray = word.split("");
-  let wordReveal = [];
+
+  let hiddenWord = "";
+  for (let letter in wordArray) {
+    hiddenWord += " __ ";
+  }
+
+  let gallows = `
+     _______
+     |/    |
+     |    ( ) 
+     |    /|\\
+     |     |
+     |    / \\
+  ___|___
+  `;
+
   let correctGuesses = [];
   let incorrectGuesses = [];
+
+  const updateGallows = () => {
+    console.log(gallows);
+  };
+
+  const updateHiddenWord = () => {
+    hiddenWord = "";
+    wordArray.forEach((ltr) => {
+      correctGuesses.includes(ltr)
+        ? (hiddenWord += ltr)
+        : (hiddenWord += " __ ");
+    });
+  };
 
   const guess = () => {
     const userInput = prompt.question("Please guess a letter: ");
     let letter;
+
     if (/[a-zA-Z]/.test(userInput)) {
       letter = userInput.toLowerCase();
     } else if (/[^a-zA-Z]/.test(userInput)) {
@@ -38,23 +67,28 @@ const newRound = () => {
     } else if (word.includes(letter)) {
       correctGuesses.push(letter);
       console.log(correctGuesses);
+      updateHiddenWord();
+      updateGallows();
+      console.log(hiddenWord);
       guess();
     } else {
       incorrectGuesses.push(letter);
       console.log(incorrectGuesses);
       if (incorrectGuesses.length < 6) {
         console.log("Incorrect. Try again!");
+        updateGallows();
+        console.log(hiddenWord);
         guess();
       } else {
         console.log("Sorry, you lose :(");
       }
     }
 
-    // Lose Scenario
-
-    // Win Scenario
+    updateGallows();
   };
 
+  updateGallows();
+  console.log(hiddenWord);
   console.log(wordArray);
 
   guess();
