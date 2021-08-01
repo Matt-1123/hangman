@@ -1,8 +1,8 @@
 const prompt = require("readline-sync");
 const wordBank = require("./word-bank.json");
 
-// const userInput = prompt.question("Please guess a letter: ");
-// console.log(userInput);
+let roundNumber = 1;
+let totalWins = 0;
 
 // ---------------------------------- //
 // FUNCTIONS
@@ -11,6 +11,17 @@ const wordBank = require("./word-bank.json");
 const randomWord = () => wordBank[Math.floor(Math.random() * wordBank.length)];
 
 const newRound = () => {
+  console.log("\nWelcome to Hangman!\nPress ctrl+c to stop\n");
+
+  if (roundNumber === 1) {
+    console.log(`Round number: ${roundNumber}`);
+  } else {
+    console.log(`
+    Round number: ${roundNumber}
+    You've won ${totalWins} out of ${roundNumber - 1} rounds.
+    `);
+  }
+
   const word = randomWord();
   const wordArray = word.split("");
 
@@ -71,6 +82,8 @@ const newRound = () => {
       // player wins if every letter in wordArray is found in correctGuesses
       if (wordArray.every((ltr) => correctGuesses.includes(ltr))) {
         console.log("You win!!!");
+        roundNumber++;
+        totalWins++;
         newRound();
       }
       updateHiddenWord();
@@ -87,6 +100,8 @@ const newRound = () => {
         guess();
       } else {
         console.log("Sorry, you lose :(");
+        roundNumber++;
+        newRound();
       }
     }
 
@@ -100,20 +115,4 @@ const newRound = () => {
   guess();
 };
 
-// ---------------------------------- //
-// GAME FLOW
-// ---------------------------------- //
-
-let roundNumber = 0;
-let totalWins = 0;
-
-console.log("\nWelcome to Hangman!\nPress ctrl+c to stop\n");
-
-if (!roundNumber) {
-  // prompt.keyInYN("Would you like to start a new game?");
-  // prompt.keyInYN("Are you sure you want to exit?");
-  newRound();
-} else {
-  console.log(`You've won ${totalWins} out of ${roundNumber} rounds.`);
-  newRound();
-}
+newRound();
