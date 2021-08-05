@@ -8,7 +8,7 @@
   "author": "Matt Russo",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<YOUR USERNAME>/hangman.git"
+    "url": "git+https://github.com/Matt-1123/hangman.git"
   },
   "dependencies": {
     "readline-sync": "^1.4.10"
