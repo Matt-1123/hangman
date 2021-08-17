@@ -147,7 +147,6 @@ const newRound = () => {
       guess();
     } else if (word.includes(letter)) {
       correctGuesses.push(letter);
-      console.log(correctGuesses);
       if (wordArray.every((ltr) => correctGuesses.includes(ltr))) {
         console.log("You win!!!");
         roundNumber++;
@@ -160,7 +159,7 @@ const newRound = () => {
       guess();
     } else {
       incorrectGuesses.push(letter);
-      console.log(incorrectGuesses);
+      console.log(`Incorrect guesses: ${incorrectGuesses}`);
       if (incorrectGuesses.length < 6) {
         console.log("Incorrect. Try again!");
         updateGallows();
@@ -179,9 +178,7 @@ const newRound = () => {
 
   // Start of new round initial screen:
   updateGallows();
-  // TODO: remove line below:
   console.log(hiddenWord);
-  console.log(wordArray);
   guess();
 };
 
